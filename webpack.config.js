@@ -4,12 +4,6 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
 
-const {
-  CLOUDFLARE_AUTH_EMAIL,
-  CLOUDFLARE_AUTH_KEY,
-  CLOUDFLARE_ZONE_ID,
-} = validateCredentials()
-
 module.exports = {
   entry: __dirname + '/src/worker.js',
   output: {
@@ -47,33 +41,15 @@ module.exports = {
       ),
     }),
 
-    new CloudflareWorkerPlugin(CLOUDFLARE_AUTH_EMAIL, CLOUDFLARE_AUTH_KEY, {
-      enabled: process.env.WORKER_ACTION === 'deploy',
-      zone: CLOUDFLARE_ZONE_ID,
-      pattern: process.env.ROUTE_PATTERN,
-      verbose: true,
-    }),
+    new CloudflareWorkerPlugin(
+      process.env.CLOUDFLARE_AUTH_EMAIL,
+      process.env.CLOUDFLARE_AUTH_KEY,
+      {
+        enabled: process.env.WORKER_ACTION === 'deploy',
+        zone: process.env.CLOUDFLARE_ZONE_ID,
+        pattern: process.env.ROUTE_PATTERN,
+        verbose: true,
+      }
+    ),
   ],
-}
-
-function validateCredentials() {
-  let {
-    CLOUDFLARE_AUTH_EMAIL: email,
-    CLOUDFLARE_AUTH_KEY: api,
-    CLOUDFLARE_ZONE_ID: zone,
-  } = process.env
-
-  if (!email || !api || !zone) {
-    throw new Error(`Invalid configuration`)
-  }
-
-  const areStrings = [email, api, zone].every(val => typeof val === 'string')
-
-  if (!areStrings) throw new Error(`Invalid configuration`)
-
-  return {
-    CLOUDFLARE_AUTH_EMAIL,
-    CLOUDFLARE_AUTH_KEY,
-    CLOUDFLARE_ZONE_ID,
-  }
 }
