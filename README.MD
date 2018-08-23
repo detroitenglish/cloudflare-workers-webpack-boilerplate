@@ -83,6 +83,8 @@ See `example.env` for details and examples on how route patterns are parsed and 
 
 - [Babel's `preset-env` documentation](https://babeljs.io/docs/en/next/babel-preset-env.html)
 
+- [`dotenv` documentation](https://github.com/motdotla/dotenv)
+
 ## Contributing
 
 WIP
@@ -92,7 +94,7 @@ WIP
 ### Disclaimer
 I am not affiliated with Cloudflare in any way. But I'll gladly high-five any Cloudflarian I meet.
 
-Assume in good faith I have no idea what I'm doing so **REVIEW THE SOURCE** and use at your own risk 🙈
+Assume in good faith I have no idea what I'm doing; **REVIEW THE SOURCE**, and use at your own risk 🙈
 
 ### License
 [MIT](./LICENSE)
