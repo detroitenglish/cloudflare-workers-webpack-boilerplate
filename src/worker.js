@@ -34,7 +34,6 @@ async function handlerFunction(request) {
 
   // return the original request content with our newly-modified response data
   return new Response(response.body, modifiedResponse)
-
 }
 
 // This is a simple helper function for the request handler
