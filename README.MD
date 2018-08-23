@@ -1,6 +1,6 @@
 # Webpack Boilerplate for Cloudflare Workers
 
-It's a dead-simple template for deploying Cloudflare Workers with Webpack.
+A superbly simple minimal-config template for building, bundling and deploying Cloudflare Workers with Webpack 🚀
 
 ![Running npm run deploy in a terminal](.github/cf-worker-webpack-boilerplate-deploy.gif?raw=true "npm run deploy")
 
