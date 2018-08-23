@@ -38,3 +38,4 @@ yarn.lock
 .vscode
 dist
 tmp
+package-lock.json
