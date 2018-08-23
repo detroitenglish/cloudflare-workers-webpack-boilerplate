@@ -5,10 +5,10 @@ Use `require()` to your ❤'s desire, and deploy your freshly-bundled Cloudflare
 ## Quick Start
 
 1. Clone this repository:
-  ````bash
-    git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
-    cd cloudflare-worker-webpack-boilerplate
-  ````
+    ````bash
+      git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
+      cd cloudflare-worker-webpack-boilerplate
+    ````
 2. Rename `example.env` to `.env`, and edit the configuration variables as required.
 3. Install dependencies with `npm install`
 4. Write your worker script in `src/worker.js`
