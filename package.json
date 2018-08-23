@@ -1,6 +1,6 @@
 {
   "name": "cloudflare-worker-webpack-boilerplate",
-  "description": "Use require() to your heart's desire, and launch your Cloudflare Worker to the edge",
+  "description": "Use require() to your ❤'s desire, and deploy your Cloudflare Worker to the Edge",
   "author": "Dave Willenberg <dave@detroit-english.de> (https://github.com/detroitenglish)",
   "version": "0.0.1-beta.1",
   "license": "MIT",
