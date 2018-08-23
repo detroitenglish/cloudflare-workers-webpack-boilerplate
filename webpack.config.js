@@ -1,8 +1,10 @@
 require('dotenv').config({ path: __dirname + '/.env' })
-
+require('colors')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
+
+console.info(`Building the Cloudflare Worker...`.green)
 
 module.exports = {
   entry: __dirname + '/src/worker.js',
