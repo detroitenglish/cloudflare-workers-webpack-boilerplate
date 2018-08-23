@@ -26,7 +26,8 @@ module.exports = {
   },
 
   optimization: {
-    minimize: process.env.WORKER_ACTION === 'deploy',
+    minimize:
+      process.env.WORKER_ACTION === 'deploy' && !process.env.DO_NOT_MINIFY,
   },
 
   plugins: [
@@ -35,6 +36,11 @@ module.exports = {
       verbose: true,
     }),
 
+    /*
+    NOTE: Injected variables are parsed as strings BEFORE injecting
+      that means strings must be double-quoted, so use JSON.stringify
+      on the value of any variables you wish to inject!
+    */
     new webpack.DefinePlugin({
       INJECTED_VARIABLE: JSON.stringify(
         process.env.EXAMPLE_GREETING || 'Aloha'
@@ -45,10 +51,12 @@ module.exports = {
       process.env.CLOUDFLARE_AUTH_EMAIL,
       process.env.CLOUDFLARE_AUTH_KEY,
       {
-        enabled: process.env.WORKER_ACTION === 'deploy',
         zone: process.env.CLOUDFLARE_ZONE_ID,
         pattern: process.env.ROUTE_PATTERN,
         verbose: true,
+        enabled: process.env.WORKER_ACTION === 'deploy',
+        clearRoutes: !!process.env.RESET_ROUTE_PATTERNS,
+        skipWorkerUpload: !!process.env.DO_NOT_UPLOAD,
       }
     ),
   ],
