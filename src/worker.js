@@ -1,17 +1,19 @@
 /* eslint-env worker, browser */
 /* globals INJECTED_VARIABLE */
 
-// Use 'require' to import e.g. npm modules
-// These will be injected by Webpack upon build
+// Use 'require' to import npm modules
+// `require()`ed modules and our Worker script are bundled into a single script at build time
 const sample = require(`lodash.sample`)
+// Alternatively, Babel is configured to support import statements, e.g.:
+//    import sample from 'lodash.sample'
 
 // This is our worker's listener function
 addEventListener(`fetch`, event => {
-  event.respondWith(handlerFunction(event.request))
+  event.respondWith(requestHandler(event.request))
 })
 
-// This function handles incoming requests
-async function handlerFunction(request) {
+// Our main function which handles requests
+async function requestHandler(request) {
   // First, fetch the original request data
   const response = await fetch(request)
 
@@ -25,18 +27,18 @@ async function handlerFunction(request) {
   // Set our greeting header in the modified response
   modifiedHeaders.set(`x-worker-greeting`, greeting)
 
-  // The response data for our modified response
-  const modifiedResponse = {
+  // Complete configuration for our modified response
+  const modifiedResponseOptions = {
     status: response.status,
     statusText: response.statusText,
     headers: modifiedHeaders,
   }
 
-  // return the original request content with our newly-modified response data
-  return new Response(response.body, modifiedResponse)
+  // return the original content with our modified response options
+  return new Response(response.body, modifiedResponseOptions)
 }
 
-// This is a simple helper function for the request handler
+// This is a simple helper function for our requestHandler
 function utilityFunction() {
   const hellos = [
     'Hello',
@@ -53,6 +55,8 @@ function utilityFunction() {
     'Hola',
     'God dag',
     'Xin chao',
+    // Below is EXAMPLE_GREETING found in the .env config file (default: 'Guten Tag')
+    // It's passed via webpack.config.js to Webpack, which then injects the greeting upon build
     INJECTED_VARIABLE,
   ]
 
