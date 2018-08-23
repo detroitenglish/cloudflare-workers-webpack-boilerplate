@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "loose": true,
+        "useBuiltIns": "usage",
+        "debug": true
+      }
+    ]
+  ]
+}
