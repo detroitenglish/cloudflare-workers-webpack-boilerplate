@@ -1,26 +1,26 @@
 # Webpack Boilerplate for Cloudflare Workers
 
-Here's a dead-simple template for bundling Cloudflare workers with Webpack.
+It's a dead-simple template for deploying Cloudflare Workers with Webpack.
 
-Webpack can seem like voodoo to the unfamiliar, so the goal is to provide a
-sane default configuration that allows anyone to bundle up a worker script with any NPM dependencies,
-and upload their script directly to Cloudflare.
+![Running npm run deploy in a terminal](.github/cf-worker-webpack-boilerplate-deploy.gif?raw=true "npm run deploy")
 
-What you configure:
+Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a reusable boilerplate with sane default configuration that allows anyone to bundle up a worker script with any NPM dependencies, and upload directly to Cloudflare.
+
+### What you configure:
 - Your Cloudflare credentials
 - Your Cloudflare Zone ID
 - One or more route matching patterns (optional)
 
-What you get:
+### What you get:
 - Babel configuration ensuring compatibility with Node 6+
 - Automatic worker compatibility with the latest Cloudflare Worker runtime
 - Automatic inclusion of polyfills, strictly as-needed
 - Managed route matching patterns if routes are provided
 - Minification of deployed scripts to help keep your Worker under the 1MB limit
-- A deployable baseline example worker with comments to help you make sense of it all
+- A ready-to-deploy baseline example Worker, with comments to help make sense of it all
 
-Requires:
-- NodeJS 6+
+### Requirements:
+- Min. Node version 6
 
 ## Quick Start
 
