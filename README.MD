@@ -9,15 +9,16 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 ### What you configure:
 - Your Cloudflare credentials
 - Your Cloudflare Zone ID
-- One or more route matching patterns (optional)
+- (Optional) One or more route matching patterns for your Worker
 
 ### What you get:
-- Babel configuration ensuring compatibility with Node 6+
-- Automatic worker compatibility with the latest Cloudflare Worker runtime
-- Automatic inclusion of polyfills, strictly as-needed
-- Managed route matching patterns if routes are provided
-- Minification of deployed scripts to help keep your Worker under the 1MB limit
-- A ready-to-deploy baseline example Worker, with comments to help make sense of it all
+- Transparent, optimized and ready-to-rock Webpack configuration file
+- Babel configuration ensuring development-setup build compatibility for Node 6 and up
+- Babel-assured compatibility for Worker's JavaScript in the latest CF-Worker (i.e. Chrome) runtime
+- Dynamic polyfilling, applied only when needed (which is anyways very unlikely!)
+- Baked-in **management of route matching patterns**, if and when routes are provided
+- Minification of deployed Worker scripts to help keep them under the 1MB limit
+- A ready-to-deploy example Worker in worker.js using `require()`, with comments to help make sense of it all
 
 ### Requirements:
 - Min. Node version 6
