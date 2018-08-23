@@ -1,6 +1,26 @@
 # Webpack Boilerplate for Cloudflare Workers
 
-Use `require()` to your ❤'s desire, and deploy your freshly-bundled Cloudflare Worker to the edge
+Here's a dead-simple template for bundling Cloudflare workers with Webpack.
+
+Webpack can seem like voodoo to the unfamiliar, so the goal is to provide a
+sane default configuration that allows anyone to bundle up a worker script with any NPM dependencies,
+and upload their script directly to Cloudflare.
+
+What you configure:
+- Your Cloudflare credentials
+- Your Cloudflare Zone ID
+- One or more route matching patterns (optional)
+
+What you get:
+- Babel configuration ensuring compatibility with Node 6+
+- Automatic worker compatibility with the latest Cloudflare Worker runtime
+- Automatic inclusion of polyfills, strictly as-needed
+- Managed route matching patterns if routes are provided
+- Minification of deployed scripts to help keep your Worker under the 1MB limit
+- A deployable baseline example worker with comments to help you make sense of it all
+
+Requires:
+- NodeJS 6+
 
 ## Quick Start
 
@@ -9,12 +29,12 @@ Use `require()` to your ❤'s desire, and deploy your freshly-bundled Cloudflare
       git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
       cd cloudflare-worker-webpack-boilerplate
     ````
-2. Rename `example.env` to `.env`, and edit the configuration variables as required.
+2. Rename `example.env` to `.env` , and add your required credentials and zone-id.
 3. Install dependencies with `npm install`
 4. Write your worker script in `src/worker.js`
    - Add any dependencies for your worker with: `npm install -P <some-required-package>`
-   - Build a preview of your bundled worker script (in `dist/bundled-worker.js`) by running: `npm run build`
-5. Bundle your worker and launch 🚀 with: `npm run deploy`
+   - Build a preview of your bundled worker script (found in `dist/bundled-worker.js`) by running: `npm run build`
+5. Bundle up your worker and launch 🚀 with: `npm run deploy`
 
 ## Configuration
 
@@ -26,9 +46,9 @@ The following are **required** in your `.env` file:
 
 - `CLOUDFLARE_AUTH_KEY`: Your Cloudflare API-Key
 
-- `CLOUDFLARE_ZONE_ID`: The Zone ID to which your worker will be deployed.
+- `CLOUDFLARE_ZONE_ID`: The Zone ID to which your worker will be deployed
 
-## Default Webpack Configuration
+## Configuration Defaults
 
 ### Minification
 Webpack is configured to minify your script before deployment to help keep your script under the 1MB limit. Building a preview with `npm run build` will not minify the bundles script to make debugging easier.
@@ -42,7 +62,7 @@ You can review how it works and find additional configuration options in the [pl
 
 Babel is included so that you can write JavaScript using the same syntaxes and features found in the latest version of Chrome **without** running to incompatibilities with your version of NodeJS.
 
-This particular Babel configuration will only add polyfills to your bundle if it determines they are necessary for Chrome compatibility.
+This particular Babel configuration will only add polyfills to your bundle if it determines that they are necessary for Chrome compatibility (highly unlikely).
 
 ### Custom Variables
 
@@ -50,7 +70,7 @@ See `example.env` for details and examples on adding and injecting custom variab
 
 ### Route Patterns
 
-See `example.env` for details and examples on how route patterns are deployed.
+See `example.env` for details and examples on how route patterns are parsed and deployed.
 
 ## Relevant Resources
 
