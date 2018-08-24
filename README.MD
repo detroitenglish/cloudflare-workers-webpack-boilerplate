@@ -76,12 +76,12 @@ Webpack is configured to minify scripts before deployment in order to help keep 
 
 Building previews with `npm run build` will **not** minify scripts in order to make debugging easier.
 
-### CFWorkerPlugin
+### CloudflareWorkerPlugin
 Worker script uploading and route pattern management are handled by the this same author's [`cloudflare-worker-webpack-plugin`](https://www.npmjs.com/package/cloudflare-worker-webpack-plugin). You can review the plugin's source code and documentation [here](https://github.com/detroitenglish/cloudflare-worker-webpack-plugin).
 
 ### Babel Configuration
 
-Babel is configured to let you use JavaScript syntaxes and features that are supported in the latest version of Chrome, but **not natively supported by NodeJS**, e.g. `{ ...objectSpread }`.
+Babel is configured to let you use JavaScript syntaxes and features that are supported in the latest version of Chrome, but **not natively supported by NodeJS**, e.g. `import "statements"` or `{ ...objectSpreadSyntax }`.
 
 On build, Babel will only add polyfills to your bundled script if, after evaluating your code, it determines a polyfill is necessary for compatibility with the latest version of Chrome (a _very_ unlikely scenario).
 
