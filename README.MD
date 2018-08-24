@@ -113,9 +113,31 @@ See [`example.env`](./example.env) for details and examples on how route pattern
 
 - [`dotenv` documentation](https://github.com/motdotla/dotenv)
 
-## Contributing
+## Development
 
-WIP
+### Testing and Issue Reporting
+
+I am not a Cloudflare employee, so as a peasant my testing is limited to my own Workers,
+in my own zones for my own application in production.
+
+So by all means, try to break stuff! And if something goes kaputt, please let me know by
+[creating an issue](https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate/issues).
+
+### Contributing
+
+PRs are very much welcome 👍
+
+_All_ dependencies are development dependencies, and linting is enforced pre-commit. Fork away!
+
+### Roadmap
+
+Some ideas going forward:
+
+- [ ] Replace zone-id requirement with automatic zone-lookup of FQDN
+- [ ] Support single-shot deployment to multiple zones
+- [ ] Add argument parsing (or actual binary?) for deployment via pure CLI
+
+But I'm very open to suggests - please share your ideas by [creating an issue](https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate/issues).
 
 ## Software Stuff
 
