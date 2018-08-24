@@ -9,5 +9,6 @@
         "debug": true
       }
     ]
-  ]
+  ],
+  "plugins": []
 }
