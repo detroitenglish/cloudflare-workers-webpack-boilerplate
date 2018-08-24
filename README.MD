@@ -27,19 +27,34 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
 1. Clone this repository:
     ````bash
-      git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
-      cd cloudflare-worker-webpack-boilerplate
+    git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
+
+    cd cloudflare-worker-webpack-boilerplate
     ````
-2. Rename `example.env` to `.env` , and add your required credentials and zone-id.
+2. Rename `example.env` to `.env` , and add your required Cloudflare credentials and zone-id.
 3. Install dependencies with `npm install`
 4. Write your worker script in `src/worker.js`
    - Add any dependencies for your worker with: `npm install -P <some-required-package>`
    - Build a preview of your bundled worker script (found in `dist/bundled-worker.js`) by running: `npm run build`
-5. Bundle up your worker and launch 🚀 with: `npm run deploy`
+5. Build, bundle and launch your Worker to the Cloudflare edge 🚀 using: `npm run deploy`
+
+
+### Example Cloudflare Worker
+
+An deployment-ready example Worker script can be found in `src/example.worker.js`.
+
+The example Worker `require()`s [lodash.sample](https://www.npmjs.com/package/lodash.sample), and uses it to randomly choose a translation of the word 'hello'. It then adds a response header in the form of:
+
+  ````
+  x-worker-greeting: <random-hello>, world!
+  ````
+
+After completing steps 1-3 above, you can build the example script with `npm run build-example`, or even deploy it to production with `npm run deploy-example`
+
 
 ## Configuration
 
-### Credentials and Zone ID
+### Required Config
 
 The following are **required** in your `.env` file:
 
@@ -49,29 +64,42 @@ The following are **required** in your `.env` file:
 
 - `CLOUDFLARE_ZONE_ID`: The Zone ID to which your worker will be deployed
 
-## Configuration Defaults
+### Optional Config
+
+Additional, optional configuration variables are defined and described in [`example.env`](./example.env)
+
+
+## Default Settings & Behaviors
 
 ### Minification
-Webpack is configured to minify your script before deployment to help keep your script under the 1MB limit. Building a preview with `npm run build` will not minify the bundles script to make debugging easier.
+Webpack is configured to minify scripts before deployment in order to help keep your bundled Worker under the 1MB limit.
 
-### Cloudflare Worker Webpack Plugin
-Script uploading and route pattern management are handled by the same author's `cloudflare-worker-webpack-plugin`.
+Building previews with `npm run build` will **not** minify scripts in order to make debugging easier.
 
-You can review how it works and find additional configuration options in the [plugin's documentation](https://github.com/detroitenglish/cloudflare-worker-webpack-plugin).
+### CFWorkerPlugin
+Worker script uploading and route pattern management are handled by the this same author's [`cloudflare-worker-webpack-plugin`](https://www.npmjs.com/package/cloudflare-worker-webpack-plugin). You can review the plugin's source code and documentation [here](https://github.com/detroitenglish/cloudflare-worker-webpack-plugin).
 
-### Babel
+### Babel Configuration
 
-Babel is included so that you can write JavaScript using the same syntaxes and features found in the latest version of Chrome **without** running to incompatibilities with your version of NodeJS.
+Babel is configured to let you use JavaScript syntaxes and features that are supported in the latest version of Chrome, but **not natively supported by NodeJS**, e.g. `{ ...objectSpread }`.
 
-This particular Babel configuration will only add polyfills to your bundle if it determines that they are necessary for Chrome compatibility (highly unlikely).
+On build, Babel will only add polyfills to your bundled script if, after evaluating your code, it determines a polyfill is necessary for compatibility with the latest version of Chrome (a _very_ unlikely scenario).
 
-### Custom Variables
+To use bleeding-edge Babel plugins - such as the very awesome [TC39 Pipeline Operator](https://github.com/tc39/proposal-pipeline-operator) proposal - install the plugin with `npm install -D <@babel/plugin-of-choice>` , then add the plugin to `.babelrc` :
 
-See `example.env` for details and examples on adding and injecting custom variables.
+```json
+"plugins": [
+  ["@babel/plugin-of-choice", { "examplePluginOption": true }]
+]
+```
+
+### Custom .env Variables
+
+See [`example.env`](./example.env) for details and examples on adding and injecting custom variables.
 
 ### Route Patterns
 
-See `example.env` for details and examples on how route patterns are parsed and deployed.
+See [`example.env`](./example.env) for details and examples on how route patterns are parsed and deployed.
 
 ## Relevant Resources
 
