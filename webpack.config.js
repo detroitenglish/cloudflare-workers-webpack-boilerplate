@@ -4,13 +4,17 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
 
-console.info(`Building the Cloudflare Worker...`.green)
+const isExample = !!process.env.EXAMPLE_WORKER
+
+console.info(
+  `Building ${isExample ? `Example` : `Cloudflare Worker`} script...`.green
+)
 
 module.exports = {
-  entry: __dirname + '/src/worker.js',
+  entry: __dirname + `/src/${isExample ? `example.worker` : `worker`}.js`,
   output: {
     path: __dirname + '/dist',
-    filename: 'bundled-worker.js',
+    filename: `bundled-${isExample ? `example-worker` : `worker`}.js`,
   },
   target: 'webworker',
   mode: 'production',
@@ -33,22 +37,24 @@ module.exports = {
   },
 
   plugins: [
+    // First, remove any previous builds in the dist folder
     new CleanWebpackPlugin(`dist/*`, {
       root: __dirname,
-      verbose: true,
+      verbose: false,
     }),
 
     /*
-    NOTE: Injected variables are parsed as strings BEFORE injecting
-      that means strings must be double-quoted, so use JSON.stringify
-      on the value of any variables you wish to inject!
+      Injected variables are parsed as strings BEFORE injecting
+        that means strings must be double-quoted, so use JSON.stringify
+        on the value of any variables you wish to inject
     */
     new webpack.DefinePlugin({
-      INJECTED_VARIABLE: JSON.stringify(
-        process.env.EXAMPLE_GREETING || 'Aloha'
-      ),
+      INJECTED_VARIABLE: isExample
+        ? void 0 // undefined
+        : JSON.stringify(process.env.EXAMPLE_GREETING || 'Aloha'),
     }),
 
+    // Deploys worker script to Cloudflare and manages route matching patterns
     new CloudflareWorkerPlugin(
       process.env.CLOUDFLARE_AUTH_EMAIL,
       process.env.CLOUDFLARE_AUTH_KEY,
