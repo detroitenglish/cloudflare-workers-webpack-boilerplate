@@ -50,8 +50,8 @@ module.exports = {
     */
     new webpack.DefinePlugin({
       INJECTED_VARIABLE: isExample
-        ? void 0 // undefined
-        : JSON.stringify(process.env.EXAMPLE_GREETING || 'Aloha'),
+        ? JSON.stringify(process.env.EXAMPLE_GREETING || 'Aloha')
+        : undefined,
     }),
 
     // Deploys worker script to Cloudflare and manages route matching patterns
