@@ -8,7 +8,7 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
 ### What you configure:
 - Your Cloudflare credentials
-- Your Cloudflare Zone ID
+- Your site name (FQDN) or Cloudflare Zone-Id
 - (Optional) One or more route matching patterns for your Worker
 
 ### What you get:
