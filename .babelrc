@@ -6,7 +6,7 @@
         "modules": false,
         "loose": true,
         "useBuiltIns": "usage",
-        "debug": true
+        "debug": false
       }
     ]
   ],
