@@ -31,7 +31,7 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
     cd cloudflare-worker-webpack-boilerplate
     ````
-2. Rename `example.env` to `.env` , and add your required Cloudflare credentials and zone-id.
+2. Rename `example.env` to `.env` , and add your required Cloudflare credentials, and either your site name or zone-id.
 3. Install dependencies with `npm install`
 4. Write your worker script in `src/worker.js`
    - Add any dependencies for your worker with: `npm install -P <some-required-package>`
@@ -154,9 +154,9 @@ But I'm very open to suggests - please share your ideas by [creating an issue](h
 ## Software Stuff
 
 ### Disclaimer
-I am not affiliated with Cloudflare in any way. But I'll gladly high-five any Cloudflarian I meet.
+Other than a happy customer, I am not affiliated with Cloudflare in any way.
 
-Assume in good faith I have no idea what I'm doing; **REVIEW THE SOURCE**, and use at your own risk 🙈
+Assume in good faith that I have no idea what I'm doing; **REVIEW THE SOURCE**, and use at your own risk 🙈
 
 ### License
 [MIT](./LICENSE)
