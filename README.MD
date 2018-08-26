@@ -43,13 +43,17 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
 An deployment-ready example Worker script can be found in `src/example.worker.js`.
 
-The example Worker `require()`s [lodash.sample](https://www.npmjs.com/package/lodash.sample), and uses it to randomly choose a translation of the word 'hello'. It then adds a response header in the form of:
+The example Worker `require()`s [lodash.sample](https://www.npmjs.com/package/lodash.sample),
+and uses it to randomly choose a translation of the word 'hello'. It then adds a response header in the form of:
 
   ````
   x-worker-greeting: <random-hello>, world!
   ````
 
-After completing steps 1-3 above, you can build the example script with `npm run build-example`, or even deploy it to production with `npm run deploy-example`
+#### Using the Example Worker
+
+After completing steps 1-3 above, you can build the example script with `npm run build:example`,
+or even deploy it to production with `npm run deploy:example`
 
 
 ## Configuration
@@ -62,7 +66,15 @@ The following are **required** in your `.env` file:
 
 - `CLOUDFLARE_AUTH_KEY`: Your Cloudflare API-Key
 
+#### Site Identifier
+
+You **must** provide a means of identifying your Cloudflare site deployment target by including either:
+
 - `CLOUDFLARE_ZONE_ID`: The Zone ID to which your worker will be deployed
+
+or
+
+- `CLOUDFLARE_SITE_NAME`: The fully qualified domain name (FQDN) of your site
 
 ### Optional Config
 
@@ -127,13 +139,13 @@ So by all means, try to break stuff! And if something goes kaputt, please let me
 
 PRs are very much welcome 👍
 
-_All_ dependencies are development dependencies, and linting is enforced pre-commit. Fork away!
+Linting is enforced pre-commit. Fork away!
 
 ### Roadmap
 
 Some ideas going forward:
 
-- [ ] Replace zone-id requirement with automatic zone-lookup of FQDN
+- [x] Replace zone-id requirement with automatic zone-lookup of FQDN (_added in 0.0.1-beta.5_)
 - [ ] Support single-shot deployment to multiple zones
 - [ ] Add argument parsing (or actual binary?) for deployment via pure CLI
 
