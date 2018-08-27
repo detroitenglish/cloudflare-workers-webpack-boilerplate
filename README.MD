@@ -41,10 +41,12 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
 ### Example Cloudflare Worker
 
-An deployment-ready example Worker script can be found in `src/example.worker.js`.
+A ready-to-rock example Worker script can be found in `src/example.worker.js`.
 
 The example Worker `require()`s [lodash.sample](https://www.npmjs.com/package/lodash.sample),
-and uses it to randomly choose a translation of the word 'hello'. It then adds a response header in the form of:
+and uses it to randomly choose a translation of the word 'hello'.
+
+It then adds a response header in the form of:
 
   ````
   x-worker-greeting: <random-hello>, world!
@@ -60,15 +62,17 @@ or even deploy it to production with `npm run deploy:example`
 
 ### Required Config
 
+#### Cloudflare Credentials
+
 The following are **required** in your `.env` file:
 
 - `CLOUDFLARE_AUTH_EMAIL`: Your Cloudflare account email address
 
 - `CLOUDFLARE_AUTH_KEY`: Your Cloudflare API-Key
 
-#### Site Identifier
+#### Site Identification
 
-You **must** provide a means of identifying your Cloudflare site deployment target by including either:
+You **must** provide a means of identifying your Cloudflare site deployment target by defining (in `.env`) either:
 
 - `CLOUDFLARE_ZONE_ID`: The Zone ID to which your worker will be deployed
 
@@ -76,12 +80,12 @@ or
 
 - `CLOUDFLARE_SITE_NAME`: The fully qualified domain name (FQDN) of your site
 
-### Optional Config
+### Additional Config
 
-Additional, optional configuration variables are defined and described in [`example.env`](./example.env)
+More options are defined and described in [`example.env`](./example.env)
 
 
-## Default Settings & Behaviors
+## Default Settings & Behaviors (Advanced)
 
 ### Minification
 Webpack is configured to minify scripts before deployment in order to help keep your bundled Worker under the 1MB limit.
@@ -92,7 +96,6 @@ Building previews with `npm run build` will **not** minify scripts in order to m
 Worker script uploading and route pattern management are handled by the this same author's [`cloudflare-worker-webpack-plugin`](https://www.npmjs.com/package/cloudflare-worker-webpack-plugin). You can review the plugin's source code and documentation [here](https://github.com/detroitenglish/cloudflare-worker-webpack-plugin).
 
 ### Babel Configuration
-
 Babel is configured to let you use JavaScript syntaxes and features that are supported in the latest version of Chrome, but **not natively supported by NodeJS**, e.g. `import "statements"` or `{ ...objectSpreadSyntax }`.
 
 On build, Babel will only add polyfills to your bundled script if, after evaluating your code, it determines a polyfill is necessary for compatibility with the latest version of Chrome (a _very_ unlikely scenario).
@@ -141,7 +144,7 @@ Some ideas going forward:
 - [ ] Support single-shot deployment to multiple zones
 - [ ] Add argument parsing (or actual binary?) for deployment via pure CLI
 
-But I'm very open to suggests - please share your ideas by [creating an issue](https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate/issues).
+But I'm very open to suggestions - please share your ideas by [creating an issue](https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate/issues).
 
 ## Software Stuff
 
