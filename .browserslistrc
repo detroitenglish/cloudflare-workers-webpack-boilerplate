@@ -1,3 +1,0 @@
-# This ensures Babel only targets compatibility with the latest version of Chrome,
-# which is the runtime for Cloudflare workers: https://developers.cloudflare.com/workers/about/how-workers-work/
-last 1 Chrome version
