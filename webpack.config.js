@@ -38,6 +38,9 @@ module.exports = {
     hints: false,
   },
 
+  // This prevents Webpack from trying to shim any Node.js APIs
+  node: false,
+
   optimization: {
     // Minify the final script if we're deploying and our config allows it
     minimize:
