@@ -15,9 +15,9 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint webpack.config.js",
     "precommit": "./node_modules/.bin/eslint src webpack.config.js",
-    "build": "cross-env WORKER_ACTION=build webpack --display none",
+    "build": "cross-env WORKER_ACTION=build webpack",
     "deploy": "cross-env WORKER_ACTION=deploy webpack --display none",
-    "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack --display none",
+    "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack",
     "deploy:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=deploy webpack --display none"
   },
   "devDependencies": {
