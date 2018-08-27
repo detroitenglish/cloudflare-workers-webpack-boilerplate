@@ -73,6 +73,7 @@ module.exports = {
         colors: useColors,
         emoji: useEmoji,
         enabled: process.env.WORKER_ACTION === 'deploy',
+        reset: !!process.env.RESET_EVERYTHING,
         clearRoutes: !!process.env.RESET_ROUTE_PATTERNS,
         skipWorkerUpload: !!process.env.DO_NOT_UPLOAD,
       }
