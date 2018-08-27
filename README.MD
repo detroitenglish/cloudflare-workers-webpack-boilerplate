@@ -97,14 +97,6 @@ Babel is configured to let you use JavaScript syntaxes and features that are sup
 
 On build, Babel will only add polyfills to your bundled script if, after evaluating your code, it determines a polyfill is necessary for compatibility with the latest version of Chrome (a _very_ unlikely scenario).
 
-To use bleeding-edge Babel plugins - such as the very awesome [TC39 Pipeline Operator](https://github.com/tc39/proposal-pipeline-operator) proposal - install the plugin with `npm install -D <@babel/plugin-of-choice>` , then add the plugin to `.babelrc` :
-
-```json
-"plugins": [
-  ["@babel/plugin-of-choice", { "examplePluginOption": true }]
-]
-```
-
 ### Custom .env Variables
 
 See [`example.env`](./example.env) for details and examples on adding and injecting custom variables.
