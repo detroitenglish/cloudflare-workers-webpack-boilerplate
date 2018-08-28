@@ -2,7 +2,7 @@
   "name": "cloudflare-worker-webpack-boilerplate",
   "description": "A superbly simple, minimal-config template to build, bundle and deploy Cloudflare Workers with Webpack.",
   "author": "Dave Willenberg <dave@detroit-english.de> (https://github.com/detroitenglish)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
