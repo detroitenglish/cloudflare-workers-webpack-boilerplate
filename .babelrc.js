@@ -1,20 +1,20 @@
 module.exports = {
-  "presets": [
+  presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
-        "modules": false,
-        "loose": true,
-        "useBuiltIns": "usage",
-        "debug": process.env.WORKER_ACTION === 'build',
-        "targets": {
-          "browsers": "last 1 Chrome versions"
+        modules: false,
+        loose: true,
+        useBuiltIns: 'usage',
+        debug: process.env.WORKER_ACTION === 'build',
+        targets: {
+          browsers: 'last 1 Chrome versions',
         },
-        "exclude": [
-          "web.dom.iterable" // We ain't got no DOM...
-        ]
-      }
-    ]
+        exclude: [
+          'web.dom.iterable', // We ain't got no DOM...
+        ],
+      },
+    ],
   ],
-  "plugins": []
+  plugins: [],
 }
