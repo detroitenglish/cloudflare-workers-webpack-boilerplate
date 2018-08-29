@@ -1,10 +1,18 @@
 # Webpack Boilerplate for Cloudflare Workers
 
-A superbly simple minimal-config template for building, bundling and deploying Cloudflare Workers with Webpack 🚀
+A superbly simple, minimal-config template for building, bundling and deploying Cloudflare Workers with Webpack 🚀
 
 ![Running npm run deploy in a terminal](.github/cf-worker-webpack-boilerplate-deploy.gif?raw=true "npm run deploy")
 
-Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a reusable boilerplate with sane default configuration that allows anyone to bundle up a worker script with any NPM dependencies, and upload directly to Cloudflare.
+&nbsp;
+
+------
+
+&nbsp;
+
+Webpack can seem like voodoo to those unfamiliar with its infamous config 💀
+
+So the goal here is to provide an easy-to-use template — with sane default settings — that'll bundle up your worker script with its `require()`'ed npm modules, upload it to Cloudflare, and even activate its route(s).
 
 ### What you configure:
 - Your Cloudflare credentials
@@ -15,13 +23,13 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 - Transparent, optimized and ready-to-rock Webpack configuration file
 - Babel configuration ensuring development-setup build compatibility for Node 6 and up
 - Babel-assured compatibility for Worker's JavaScript in the latest CF-Worker (i.e. Chrome) runtime
-- Dynamic polyfilling, applied only when needed (which is anyways very unlikely!)
+- On-demand polyfilling in the (very unlikely) event that it's needed
 - Baked-in **management of route matching patterns**, if and when routes are provided
 - Minification of deployed Worker scripts to help keep them under the 1MB limit
-- A ready-to-deploy example Worker in worker.js using `require()`, with comments to help make sense of it all
+- A deployable example Worker featuring `require()`, and with comments to help make sense of it all
 
 ### Requirements:
-- Min. Node version 6
+- Minimum Node.js version 6
 
 ## Quick Start
 
@@ -31,12 +39,12 @@ Webpack can seem like voodoo to the unfamiliar, so the goal here is to provide a
 
     cd cloudflare-worker-webpack-boilerplate
     ````
-2. Rename `example.env` to `.env` , and add your required Cloudflare credentials, and either your site name or zone-id.
+2. Rename `example.env` to `.env` , and add your required Cloudflare credentials, and either your site name or site's zone-id.
 3. Install dependencies with `npm install`
 4. Write your worker script in `src/worker.js`
-   - Add any dependencies for your worker with: `npm install -P <some-required-package>`
-   - Build a preview of your bundled worker script (found in `dist/bundled-worker.js`) by running: `npm run build`
-5. Build, bundle and launch your Worker to the Cloudflare edge 🚀 using: `npm run deploy`
+   - Install any dependencies for your worker with: `npm install -P <some-npm-module>`
+   - Build a preview of your bundled worker script in `dist/bundled-worker.js` by running: `npm run build`
+5. Build, bundle and launch your ~~minion~~ Worker to the Cloudflare Edge 🚀 using: `npm run deploy`
 
 
 ### Example Cloudflare Worker
@@ -54,8 +62,9 @@ It then adds a response header in the form of:
 
 #### Using the Example Worker
 
-After completing steps 1-3 above, you can build the example script with `npm run build:example`,
-or even deploy it to production with `npm run deploy:example`
+After completing steps 1-3 above, you can build the example script with `npm run build:example`
+
+You can even deploy it live to your site with `npm run deploy:example`
 
 
 ## Configuration
@@ -78,7 +87,7 @@ You **must** provide a means of identifying your Cloudflare site deployment targ
 
 or
 
-- `CLOUDFLARE_SITE_NAME`: The fully qualified domain name (FQDN) of your site
+- `CLOUDFLARE_SITE_NAME`: The fully qualified domain name (FQDN) of your site, e.g. _example.lol_
 
 ### Additional Config
 
