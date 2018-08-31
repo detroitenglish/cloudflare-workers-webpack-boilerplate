@@ -1,3 +1,4 @@
+/* eslint-env node */
 require('dotenv').config({ path: __dirname + '/.env' })
 require('colors')
 const webpack = require('webpack')

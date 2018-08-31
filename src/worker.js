@@ -1,4 +1,4 @@
-/* eslint-env worker, browser */
+/* eslint-env worker, browser, commonjs */
 /* globals */ // list injected variables after 'globals'
 
 addEventListener(`fetch`, event => {

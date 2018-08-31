@@ -1,10 +1,10 @@
-/* eslint-env worker, browser */
+/* eslint-env worker, browser, commonjs */
 /* globals INJECTED_VARIABLE */
 
 // `require()`ed modules and our Worker script are bundled into a single script at build time
-const sample = require(`lodash.sample`)
-// Alternatively, Babel is configured to support import statements, e.g.:
+//  Alternatively, you can use import statements, e.g.:
 //    import sample from 'lodash.sample'
+const sample = require(`lodash.sample`)
 
 // This is our worker's listener function
 addEventListener(`fetch`, event => {
