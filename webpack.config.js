@@ -5,10 +5,17 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
 
+if (!require('fs').existsSync(__dirname + '/.env'))
+  throw new Error(`'.env' configuration file not found`)
+
 const isExample = !!process.env.EXAMPLE_WORKER
 const useColors = !process.env.NO_COLORS
 const useEmoji = !process.env.NO_EMOJI
-const stfu = !process.env.NO_VERBOSE
+const printOutput = !process.env.NO_VERBOSE
+
+const entry = __dirname + `/src/${isExample ? `example.worker` : `worker`}.js`
+
+const filename = `bundled-${isExample ? `example-worker` : `worker`}.js`
 
 let exampleGreeting
 if (isExample) exampleGreeting = process.env.EXAMPLE_GREETING || 'Aloha'
@@ -16,30 +23,51 @@ if (isExample) exampleGreeting = process.env.EXAMPLE_GREETING || 'Aloha'
 startupText()
 
 module.exports = {
-  entry: __dirname + `/src/${isExample ? `example.worker` : `worker`}.js`,
+  entry,
+
   output: {
     path: __dirname + '/dist',
-    filename: `bundled-${isExample ? `example-worker` : `worker`}.js`,
+    filename,
   },
-  // This lets Webpack know the context in which our script will run
-  target: 'webworker',
-  // This lets Webpack know that we mean business
+
+  // Let Webpack know we mean business
   mode: 'production',
-  // This runs all JS through Babel to ensure compatibility with the Cloudflare Worker (i.e. Chrome) runtime
+
+  // Let Webpack know the context in which our script will run
+  target: 'webworker',
+
   module: {
     rules: [
+      /*
+        This causes scripts attempting to use Node's built-in APIs or global objects
+          to fail, e.g. `Buffer` and `require('crypto')`. Install and require() shim
+          modules manually if you wish to use these features.
+       */
+      {
+        include: entry,
+        loader: 'eslint-loader',
+        options: {
+          failOnError: true,
+          pre: true,
+        },
+      },
+      /*
+        This runs all JS through Babel to ensure compatibility with the
+          Cloudflare Worker (i.e. latest Chrome) runtime.
+       */
       {
         test: /\.js$/,
         loader: 'babel-loader',
       },
     ],
   },
+
   // Prevent Webpack from getting angry if we bundle a large script
   performance: {
     hints: false,
   },
 
-  // This prevents Webpack from trying to shim any Node.js APIs
+  // Prevent Webpack from shimming Node features and bloating our Worker scripts
   node: false,
 
   optimization: {
@@ -49,7 +77,7 @@ module.exports = {
   },
 
   plugins: [
-    // First, remove any previous builds in the dist folder
+    // Remove any previous builds in the dist folder
     new CleanWebpackPlugin(`dist/*`, {
       root: __dirname,
       verbose: false,
@@ -64,8 +92,9 @@ module.exports = {
       INJECTED_VARIABLE: JSON.stringify(exampleGreeting),
     }),
 
-    // This plugin deploys our worker script to Cloudflare,
-    //  and manages route matching patterns
+    /*
+      This deploys our worker script to Cloudflare and manages route patterns
+    */
     new CloudflareWorkerPlugin(
       process.env.CLOUDFLARE_AUTH_EMAIL,
       process.env.CLOUDFLARE_AUTH_KEY,
@@ -73,7 +102,7 @@ module.exports = {
         zone: process.env.CLOUDFLARE_ZONE_ID,
         site: process.env.CLOUDFLARE_SITE_NAME,
         pattern: process.env.ROUTE_PATTERN,
-        verbose: stfu,
+        verbose: printOutput,
         colors: useColors,
         emoji: useEmoji,
         enabled: process.env.WORKER_ACTION === 'deploy',

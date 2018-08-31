@@ -13,18 +13,15 @@
   },
   "homepage": "https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint webpack.config.js",
+    "lint": "./node_modules/.bin/eslint src webpack.config.js",
     "precommit": "./node_modules/.bin/eslint src webpack.config.js",
-    "build": "cross-env WORKER_ACTION=build webpack",
-    "deploy": "cross-env WORKER_ACTION=deploy webpack --display none",
-    "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack",
-    "deploy:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=deploy webpack --display none"
+    "build": "cross-env WORKER_ACTION=build webpack --bail",
+    "deploy": "cross-env WORKER_ACTION=deploy webpack --display none --bail",
+    "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack --bail",
+    "deploy:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=deploy webpack --display none --bail"
   },
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-prettier": "^2.6.2",
     "husky": "^0.14.3",
     "prettier": "^1.14.2"
@@ -33,12 +30,16 @@
     "@babel/core": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "cloudflare-worker-webpack-plugin": "^1.2.3",
     "colors": "^1.3.2",
     "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
+    "eslint": "^5.4.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-babel": "^5.1.0",
     "lodash.sample": "^4.2.1",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0"
