@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
 
-function config(envPath, fixture) {
+function createWebpackConfig(envPath, fixture) {
   let {
     entry,
     useColors,
@@ -113,4 +113,4 @@ function config(envPath, fixture) {
 
 const test = process.env.NODE_ENV === 'testing'
 
-module.exports = test ? testConfig(config) : config()
+module.exports = test ? testConfig(createWebpackConfig) : createWebpackConfig()
