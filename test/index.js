@@ -1,5 +1,6 @@
 /* eslint-env module, node, commonjs */
 process.env.NODE_ENV = 'testing'
+process.env.WORKER_ACTION = 'deploy'
 const test = require('ava')
 const rimraf = require('rimraf')
 const { promisify } = require('util')
