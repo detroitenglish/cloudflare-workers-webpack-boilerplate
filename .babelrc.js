@@ -8,7 +8,7 @@ module.exports = {
         modules: false,
         loose: true,
         useBuiltIns: 'usage',
-        debug: process.env.WORKER_ACTION === 'build',
+        debug: process.env.WORKER_ACTION === 'build' && !process.env.TEST,
         targets: {
           browsers: 'last 1 Chrome versions',
         },

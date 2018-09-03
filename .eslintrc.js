@@ -18,6 +18,7 @@ const config = {
 if (dev) {
   config.plugins = ['babel', 'prettier']
   config.extends = ['eslint:recommended', 'plugin:prettier/recommended']
+  config.parserOptions.sourceType = 'module'
   config.rules = {
     'prettier/prettier': 'error',
     'no-console': 'off',
