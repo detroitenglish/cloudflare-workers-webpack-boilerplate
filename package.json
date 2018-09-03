@@ -13,9 +13,9 @@
   },
   "homepage": "https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src webpack.config.js test/index.js lib",
+    "lint": "eslint src lib test/index.js webpack.config.js",
     "test": "ava --verbose",
-    "precommit": "./node_modules/.bin/npm-run-all lint test",
+    "precommit": "npm-run-all -p lint test",
     "build": "cross-env WORKER_ACTION=build webpack --bail",
     "deploy": "cross-env WORKER_ACTION=deploy webpack --display none --bail",
     "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack --bail",
