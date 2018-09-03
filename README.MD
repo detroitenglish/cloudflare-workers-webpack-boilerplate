@@ -9,10 +9,14 @@ A superbly simple, minimal-config template for building, bundling and deploying 
 ------
 
 &nbsp;
+### What this is:
 
-Webpack can seem like voodoo to those unfamiliar with its infamous config 💀
+Webpack is the recommended means for Cloudflare Worker developers to leverage `npm`'s massive, modular ecosystem. But to those unfamiliar with Webpack's ~~black magic~~ configuration, it can mean investing countless hours in tooling-tweaks and `.rc`-file-fiddling.
 
-So the goal here is to provide an easy-to-use template — with sane default settings — that'll bundle up your worker script with its `require()`'ed npm modules, upload it to Cloudflare, and even activate its route(s).
+So the goal, here, is to provide a fiddle-free, Webpack-powered launchpad with default settings sane enough for almost any use case.
+
+It'll bundle up your script and dependencies, upload your Worker to Cloudflare, and even activate its route(s). The world's now yours to `require()` 🌍
+
 
 ### What you configure:
 - Your Cloudflare credentials
@@ -22,14 +26,14 @@ So the goal here is to provide an easy-to-use template — with sane default set
 ### What you get:
 - Transparent, optimized and ready-to-rock Webpack configuration file
 - Babel configuration ensuring development-setup build compatibility for Node 6 and up
-- Babel-assured compatibility for Worker's JavaScript in the latest CF-Worker (i.e. Chrome) runtime
-- On-demand polyfilling in the (very unlikely) event that it's needed
+- Babel-assured script compatibility in the latest CF-Worker (i.e. Chrome) runtime
+- On-demand polyfilling in the (very unlikely) event that it's ever needed
 - Baked-in **management of route matching patterns**, if and when routes are provided
 - Minification of deployed Worker scripts to help keep them under the 1MB limit
-- A deployable example Worker featuring `require()`, and with comments to help make sense of it all
+- A deployable example Worker to demonstrate `require()` and some neat native Webpack features
 
 ### Requirements:
-- Minimum Node.js version 6
+- Node 6 or later
 
 ## Quick Start
 
@@ -143,13 +147,16 @@ So by all means, try to break stuff! And if something goes kaputt, please let me
 
 PRs are very much welcome 👍
 
-Linting is enforced pre-commit. Fork away!
+Committing will trigger - and must pass - linting and a few tests ([...which there could be more of!](https://media1.giphy.com/media/74d1H50VBuE2A/giphy.gif))
+
+Fork away!
 
 ### Roadmap
 
 Some ideas going forward:
 
 - [x] Replace zone-id requirement with automatic zone-lookup of FQDN (_added in 0.0.1-beta.5_)
+- [ ] Setup CI for deployment tests with the Cloudflare API
 - [ ] Support single-shot deployment to multiple zones
 - [ ] Add argument parsing (or actual binary?) for deployment via pure CLI
 
