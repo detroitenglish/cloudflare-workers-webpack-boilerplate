@@ -10,14 +10,16 @@ const testConfig = require(process.cwd() + `/webpack.config.js`)
 test.beforeEach(() => rimraf.sync(process.cwd() + `/dist/*`))
 
 test('should throw if Cloudflare credentials not found', t => {
-  return t.throws(() => testConfig(`example`), Error)
+  const msg = `\\'CF-Account-.*\\' is undefined`
+  return t.throws(() => testConfig(`credentials`), RegExp(msg))
 })
 
 test('should throw if Cloudflare site or zone-id not found', t => {
-  return t.throws(() => testConfig(`zone`), Error)
+  const msg = `You must provide either a zone-id or site name`
+  return t.throws(() => testConfig(`zone`), msg)
 })
 
-test('should throw with unshimmed Node builtins', async t => {
+test('should error when using unshimmed Node builtins', async t => {
   const expectation = `Module failed because of a eslint error.`
   const config = testConfig(`eslint`)
   let stats = await webpack(config).then(result => result.toJson())
