@@ -13,6 +13,7 @@ function createWebpackConfig(envPath, fixture) {
     filename,
     exampleGreeting,
     useEmoji,
+    metadataPath,
   } = bootstrap(envPath, fixture)
 
   return {
@@ -98,6 +99,7 @@ function createWebpackConfig(envPath, fixture) {
           zone: process.env.CLOUDFLARE_ZONE_ID,
           site: process.env.CLOUDFLARE_SITE_NAME,
           pattern: process.env.ROUTE_PATTERN,
+          metadataPath,
           verbose: printOutput,
           colors: useColors,
           emoji: useEmoji,
