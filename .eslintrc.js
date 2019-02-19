@@ -5,6 +5,7 @@ const dev = !process.env.WORKER_ACTION
 const config = {
   env: {
     es6: true,
+    node: false,
   },
   parserOptions: {
     ecmaVersion: 9,
