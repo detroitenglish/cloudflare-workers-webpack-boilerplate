@@ -14,41 +14,45 @@
   "homepage": "https://github.com/detroitenglish/cloudflare-worker-webpack-boilerplate",
   "scripts": {
     "lint": "eslint src lib test/index.js webpack.config.js",
-    "test": "ava --verbose",
-    "precommit": "npm-run-all -p lint test",
+    "test": "ava --fail-fast",
     "build": "cross-env WORKER_ACTION=build webpack --bail",
     "deploy": "cross-env WORKER_ACTION=deploy webpack --display none --bail",
     "build:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=build webpack --bail",
     "deploy:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=deploy webpack --display none --bail"
   },
   "devDependencies": {
-    "ava": "next",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.2.0",
+    "ava": "^1.2.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.15.2",
-    "rimraf": "^2.6.2"
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
+    "@babel/core": "^7.3.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
-    "clean-webpack-plugin": "^1.0.0",
-    "cloudflare-worker-webpack-plugin": "^1.2.3",
-    "colors": "^1.3.2",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.1",
+    "cloudflare-worker-webpack-plugin": "^2.0.0",
+    "colors": "^1.3.3",
     "cross-env": "^5.2.0",
-    "dotenv": "^6.1.0",
-    "eslint": "^5.9.0",
-    "eslint-loader": "^2.1.1",
+    "dotenv": "^6.2.0",
+    "eslint": "^5.14.1",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-babel": "^5.3.0",
     "lodash.sample": "^4.2.1",
-    "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "engines": {
     "node": ">= 8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": ""
+    }
   }
 }

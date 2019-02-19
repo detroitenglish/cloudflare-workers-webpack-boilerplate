@@ -98,14 +98,14 @@ function createWebpackConfig(envPath, fixture) {
         {
           zone: process.env.CLOUDFLARE_ZONE_ID,
           site: process.env.CLOUDFLARE_SITE_NAME,
-          pattern: process.env.ROUTE_PATTERN,
+          enabledPatterns: process.env.ENABLED_PATTERNS,
+          disabledPatterns: process.env.DISABLED_PATTERNS,
           metadataPath,
           verbose: printOutput,
           colors: useColors,
           emoji: useEmoji,
           enabled: process.env.WORKER_ACTION === 'deploy',
           reset: !!process.env.RESET_EVERYTHING,
-          clearRoutes: !!process.env.RESET_ROUTE_PATTERNS,
           skipWorkerUpload: !!process.env.DO_NOT_UPLOAD,
         }
       ),
