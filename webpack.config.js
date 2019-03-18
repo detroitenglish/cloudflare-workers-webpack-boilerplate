@@ -44,7 +44,11 @@ function createWebpackConfig(envPath, fixture) {
           loader: 'eslint-loader',
           options: {
             failOnError: true,
+            failOnWarning: false,
             pre: true,
+            rules: {
+              'prettier/prettier': 'off',
+            },
           },
         },
         /*
@@ -73,12 +77,12 @@ function createWebpackConfig(envPath, fixture) {
       noEmitOnErrors: true,
     },
 
+    // Only spit out errors if we have them...
+    stats: 'errors-only',
+
     plugins: [
       // Remove any previous builds in the dist folder
-      new CleanWebpackPlugin(`dist/*`, {
-        root: __dirname,
-        verbose: false,
-      }),
+      new CleanWebpackPlugin(),
 
       /*
       Injected variables are parsed as strings BEFORE injecting
