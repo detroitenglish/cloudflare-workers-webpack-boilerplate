@@ -18,7 +18,7 @@
     "deploy": "cross-env WORKER_ACTION=deploy webpack --display none --bail",
     "deploy:example": "cross-env EXAMPLE_WORKER=1 WORKER_ACTION=deploy webpack --display none --bail",
     "lint": "eslint src lib test/index.js webpack.config.js",
-    "reset": "cross-env RESET_EVERYTHING=1 yarn deploy",
+    "reset": "cross-env RESET_EVERYTHING=1 npm run deploy",
     "test": "ava --fail-fast"
   },
   "devDependencies": {
