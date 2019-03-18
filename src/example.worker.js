@@ -1,5 +1,5 @@
 /* eslint-env worker, browser, commonjs */
-/* globals INJECTED_VARIABLE */
+/* globals INJECTED_VARIABLE GREETING */
 
 // `require()`ed modules and our Worker script are bundled into a single script at build time
 //  Alternatively, you can use import statements, e.g.:
@@ -54,6 +54,10 @@ function utilityFunction() {
     'Hola',
     'God dag',
     'Xin chao',
+    // Below is a secret variable GREETING found in src/example.metadata.json (default: 'Howdy')
+    // The 'secret' is stored in the Cloudflare Worker Secrets Vault and automatically
+    // injected when the script is executed.
+    GREETING,
     // Below is EXAMPLE_GREETING found in the .env config file (default: 'Guten Tag')
     // It's passed via webpack.config.js to Webpack, which then injects the greeting upon build
     INJECTED_VARIABLE,
