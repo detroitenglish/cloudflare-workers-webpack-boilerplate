@@ -31,9 +31,10 @@ It'll bundle up your script and dependencies, upload your Worker to Cloudflare, 
 - Baked-in **management of route matching patterns**, if and when routes are provided
 - Minification of deployed Worker scripts to help keep them under the 1MB limit
 - A deployable example Worker to demonstrate `require()` and some neat native Webpack features
+- Optional secure access to secret keys, tokens, and certificates using [CF-Worker secrets vault](https://developers.cloudflare.com/workers/api/resource-bindings/secrets-vault/)
 
 ### Requirements:
-- Node 6 or later
+- Node 8 or later
 
 ## Quick Start
 
@@ -116,6 +117,10 @@ On build, Babel will only add polyfills to your bundled script if, after evaluat
 ### Custom .env Variables
 
 See [`example.env`](./example.env) for details and examples on adding and injecting custom variables.
+
+### Cloudflare Worker Secrets Vault
+
+See [`example.env`](./example.env) for details and examples on including a `metadata.json` secrets file.
 
 ### Route Patterns
 
