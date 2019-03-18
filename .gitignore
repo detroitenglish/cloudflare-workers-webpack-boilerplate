@@ -31,7 +31,7 @@ node_modules/
 yarn.lock
 
 # dotenv environment variables file
-.env
+*.env
 !example.env
 
 # Project-specifics
@@ -39,3 +39,6 @@ yarn.lock
 dist
 tmp
 package-lock.json
+
+# Test configurations
+*.webpack.config.js
