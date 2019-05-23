@@ -1,29 +1,40 @@
 /* eslint-env node */
-require('colors')
-const { bootstrap, testConfig } = require('./lib')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
+const { bootstrap, resolve } = require('./lib')
 
-function createWebpackConfig(envPath, fixture) {
+function createWebpackConfig(env) {
+  let params = bootstrap(env)
   let {
-    entry,
-    useColors,
-    printOutput,
-    filename,
+    disabledPatterns,
+    enabledPatterns,
     exampleGreeting,
-    useEmoji,
+    filename,
     metadataPath,
-  } = bootstrap(envPath, fixture)
+    minify,
+    printOutput: verbose,
+    useColors: colors,
+    useEmoji: emoji,
+    workerSrc: entry,
+    deploy,
+    reset,
+    debug,
+    site,
+    zone,
+    cfEmail,
+    cfApiKey,
+  } = params
 
   return {
     entry,
 
     output: {
-      path: __dirname + '/dist',
+      path: resolve(`dist`),
       filename,
     },
-
+    bail: true,
+    cache: false,
     // Let Webpack know we mean business
     mode: 'production',
 
@@ -33,22 +44,21 @@ function createWebpackConfig(envPath, fixture) {
     module: {
       rules: [
         /*
-        This causes scripts attempting to use Node's built-in APIs or global objects
-          to fail, e.g. `Buffer` and `require('crypto')`. Install and require() shim
-          modules manually if you wish to use these features.
+        This causes scripts attempting to use Node's built-in APIs or global
+          objects to fail, e.g. `Buffer` and `require('crypto')`. Install and
+          require() shim modules manually if you wish to use these features.
        */
         {
           // include: entry,
-          test: /\.js$/,
-          exclude: /node_modules/,
+          test: /\.m?js$/,
+          exclude: /\/node_modules\//,
           loader: 'eslint-loader',
           options: {
             failOnError: true,
             failOnWarning: false,
             pre: true,
-            rules: {
-              'prettier/prettier': 'off',
-            },
+            // rules: {'prettier/prettier': 'off',
+            // },
           },
         },
         /*
@@ -56,8 +66,31 @@ function createWebpackConfig(envPath, fixture) {
           Cloudflare Worker (i.e. latest Chrome) runtime.
        */
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           loader: 'babel-loader',
+          exclude: /\/node_modules\//,
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                  loose: true,
+                  useBuiltIns: 'usage',
+                  debug,
+                  corejs: 3,
+                  targets: {
+                    browsers: 'last 1 Chrome versions',
+                  },
+                  exclude: [
+                    /web\.dom/, // We ain't got no DOM...
+                    /generator|runtime/,
+                  ],
+                },
+              ],
+            ],
+            plugins: [],
+          },
         },
       ],
     },
@@ -67,13 +100,13 @@ function createWebpackConfig(envPath, fixture) {
       hints: false,
     },
 
-    // Prevent Webpack from shimming Node features and bloating our Worker scripts
+    // Prevent Webpack from shimming Node features and bloating our Worker
+    // scripts
     node: false,
 
     optimization: {
       // Minify the final script if we're deploying and our config allows it
-      minimize:
-        process.env.WORKER_ACTION === 'deploy' && !process.env.DO_NOT_MINIFY,
+      minimize: minify,
       noEmitOnErrors: true,
     },
 
@@ -82,12 +115,17 @@ function createWebpackConfig(envPath, fixture) {
 
     plugins: [
       // Remove any previous builds in the dist folder
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({
+        dry: false,
+        verbose: debug,
+        cleanOnceBeforeBuildPatterns: [`*.js`],
+        cleanAfterEveryBuildPatterns: [`tmp`],
+      }),
 
       /*
-      Injected variables are parsed as strings BEFORE injecting
-        that means strings must be double-quoted, so use JSON.stringify
-        on the value of any variables you wish to inject
+      Injected variables are parsed as strings BEFORE injecting that means
+        strings must be double-quoted, so use JSON.stringify on the value of any
+        variables you wish to inject
     */
       new webpack.DefinePlugin({
         INJECTED_VARIABLE: JSON.stringify(exampleGreeting),
@@ -96,27 +134,23 @@ function createWebpackConfig(envPath, fixture) {
       /*
       This deploys our worker script to Cloudflare and manages route patterns
     */
-      new CloudflareWorkerPlugin(
-        process.env.CLOUDFLARE_AUTH_EMAIL,
-        process.env.CLOUDFLARE_AUTH_KEY,
-        {
-          zone: process.env.CLOUDFLARE_ZONE_ID,
-          site: process.env.CLOUDFLARE_SITE_NAME,
-          enabledPatterns: process.env.ENABLED_PATTERNS,
-          disabledPatterns: process.env.DISABLED_PATTERNS,
-          metadataPath,
-          verbose: printOutput,
-          colors: useColors,
-          emoji: useEmoji,
-          enabled: process.env.WORKER_ACTION === 'deploy',
-          reset: !!process.env.RESET_EVERYTHING,
-          skipWorkerUpload: !!process.env.DO_NOT_UPLOAD,
-        }
-      ),
+      new CloudflareWorkerPlugin(cfEmail, cfApiKey, {
+        colors,
+        disabledPatterns,
+        emoji,
+        enabled: deploy,
+        enabledPatterns,
+        metadataPath,
+        reset,
+        site,
+        verbose,
+        zone,
+      }),
     ],
   }
 }
 
-const test = process.env.NODE_ENV === 'testing'
-
-module.exports = test ? testConfig(createWebpackConfig) : createWebpackConfig()
+module.exports =
+  process.env.NODE_ENV === 'testing'
+    ? createWebpackConfig
+    : createWebpackConfig()
