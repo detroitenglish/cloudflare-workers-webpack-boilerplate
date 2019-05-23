@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-const dev = !process.env.WORKER_ACTION
+const dev = process.env.NODE_ENV === 'testing'
 
 const config = {
   env: {
