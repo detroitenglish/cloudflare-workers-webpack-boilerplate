@@ -17,7 +17,7 @@
     "build:example": "webpack --bail --example --no-deploy",
     "deploy": "webpack --bail --deploy",
     "deploy:example": "webpack --bail --example --deploy",
-    "lint": "eslint src lib test/index.js webpack.config.js",
+    "lint": "eslint src lib test webpack.config.js --ignore-pattern=eslint.test.js",
     "reset": "webpack --bail --reset",
     "test": "ava --fail-fast"
   },
