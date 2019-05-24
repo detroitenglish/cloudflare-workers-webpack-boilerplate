@@ -1,7 +1,7 @@
 /* eslint-env node */
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
+const CloudflareWorkerPlugin = require('cloudflare-workers-webpack-plugin')
 const { bootstrap, resolve } = require('./lib')
 
 function createWebpackConfig(env) {
