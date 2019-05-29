@@ -53,9 +53,9 @@ and even activate its route(s). The world's now yours to `require('🌍')`
 1.  Clone this repository:
 
     ```bash
-    git clone git@github.com:detroitenglish/cloudflare-worker-webpack-boilerplate.git
+    git clone git@github.com:detroitenglish/cloudflare-workers-webpack-boilerplate.git
 
-    cd cloudflare-worker-webpack-boilerplate
+    cd cloudflare-workers-webpack-boilerplate
     ```
 
 2.  Rename `example.env` to `.env` , and add your required Cloudflare
