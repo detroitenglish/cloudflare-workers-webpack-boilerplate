@@ -1,0 +1,20 @@
+{
+  "ignore": {
+    "webpack": {
+      "versions": ">=5",
+      "reason": "Break config"
+    },
+    "webpack-cli": {
+      "versions": ">=4",
+      "reason": "Breaks config"
+    },
+    "ava": {
+      "versions": ">1.4.1",
+      "reason": "TODO"
+    },
+    "husky": {
+      "versions": ">2.3.0",
+      "reason": "TODO"
+    }
+  }
+}
