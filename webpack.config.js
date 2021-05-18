@@ -1,7 +1,7 @@
 /* eslint-env node */
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CloudflareWorkerPlugin = require('cloudflare-workers-webpack-plugin')
+const CloudflareWorkerPlugin = require('./../cloudflare-workers-webpack-plugin/dist/index.js')
 const { bootstrap, resolve } = require('./lib')
 
 function createWebpackConfig(env) {
@@ -24,6 +24,7 @@ function createWebpackConfig(env) {
     zone,
     cfEmail,
     cfApiKey,
+    scriptName,
   } = params
 
   return {
@@ -135,6 +136,7 @@ function createWebpackConfig(env) {
       This deploys our worker script to Cloudflare and manages route patterns
     */
       new CloudflareWorkerPlugin(cfEmail, cfApiKey, {
+        scriptName,
         colors,
         disabledPatterns,
         emoji,
