@@ -1,30 +1,35 @@
-/* eslint-env node */
-
-const dev = process.env.NODE_ENV === 'testing'
-
-const config = {
-  env: {
-    es6: true,
-    node: false,
-  },
+module.exports = {
+  root: true,
   parserOptions: {
     ecmaVersion: 9,
-    parser: 'babel-eslint',
+    sourceType: `module`,
+    allowImportExportEverywhere: true,
+    requireConfigFile: false,
   },
+  env: {
+    node: true,
+    es6: true,
+  },
+  parser: `@babel/eslint-parser`,
+  extends: [`eslint:recommended`, `plugin:prettier/recommended`],
   rules: {
-    'no-undef': 'error',
+    'babel/no-invalid-this': 0,
+    'babel/no-unused-expressions': 0,
+    'babel/valid-typeof': 0,
+    'no-console': 0,
+    'no-empty': `off`,
+    'no-var': `error`,
+    'prefer-template': `error`,
+    quotes: [`warn`, `backtick`],
+    eqeqeq: `error`,
+    strict: `error`,
+    'require-await': `error`,
+    'prettier/prettier': [
+      `warn`,
+      {},
+      {
+        usePrettierrc: true,
+      },
+    ],
   },
 }
-
-if (dev) {
-  config.plugins = ['babel', 'prettier']
-  config.extends = ['eslint:recommended', 'plugin:prettier/recommended']
-  config.parserOptions.sourceType = 'module'
-  config.rules = {
-    'prettier/prettier': 'error',
-    'no-console': 'off',
-    'require-await': 'error',
-  }
-}
-
-module.exports = config

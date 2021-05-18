@@ -40,20 +40,20 @@ async function requestHandler(request) {
 // A simple helper function for the requestHandler
 async function utilityFunction() {
   const hellos = [
-    'Hello',
-    'Konnichi wa',
-    'Goedendag',
-    'Bonjour',
-    'Shalom',
-    'Buonguiorno',
-    'Dzien dobry',
-    'Moin moin',
-    'Alo',
-    'Gauden Dag',
-    'Privet',
-    'Hola',
-    'God dag',
-    'Xin chao',
+    `Hello`,
+    `Konnichi wa`,
+    `Goedendag`,
+    `Bonjour`,
+    `Shalom`,
+    `Buonguiorno`,
+    `Dzien dobry`,
+    `Moin moin`,
+    `Alo`,
+    `Gauden Dag`,
+    `Privet`,
+    `Hola`,
+    `God dag`,
+    `Xin chao`,
   ]
 
   try {

@@ -1,8 +1,9 @@
 /* eslint-env node */
-const webpack = require('webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CloudflareWorkerPlugin = require('./../cloudflare-workers-webpack-plugin/dist/index.js')
-const { bootstrap, resolve } = require('./lib')
+const webpack = require(`webpack`)
+const CleanWebpackPlugin = require(`clean-webpack-plugin`)
+const CloudflareWorkerPlugin = require(`cloudflare-workers-webpack-plugin`)
+const ESLintPlugin = require(`eslint-webpack-plugin`)
+const { bootstrap, resolve } = require(`./lib`)
 
 function createWebpackConfig(env) {
   let params = bootstrap(env)
@@ -37,51 +38,34 @@ function createWebpackConfig(env) {
     bail: true,
     cache: false,
     // Let Webpack know we mean business
-    mode: 'production',
+    mode: `production`,
 
     // Let Webpack know the context in which our script will run
-    target: 'webworker',
+    target: `webworker`,
 
     module: {
       rules: [
-        /*
-        This causes scripts attempting to use Node's built-in APIs or global
-          objects to fail, e.g. `Buffer` and `require('crypto')`. Install and
-          require() shim modules manually if you wish to use these features.
-       */
-        {
-          // include: entry,
-          test: /\.m?js$/,
-          exclude: /\/node_modules\//,
-          loader: 'eslint-loader',
-          options: {
-            failOnError: true,
-            failOnWarning: false,
-            pre: true,
-            // rules: {'prettier/prettier': 'off',
-            // },
-          },
-        },
         /*
         This runs all JS through Babel to ensure compatibility with the
           Cloudflare Worker (i.e. latest Chrome) runtime.
        */
         {
           test: /\.m?js$/,
-          loader: 'babel-loader',
+          loader: `babel-loader`,
           exclude: /\/node_modules\//,
           options: {
+            // requireConfigFile: false,
             presets: [
               [
-                '@babel/preset-env',
+                `@babel/preset-env`,
                 {
                   modules: false,
                   loose: true,
-                  useBuiltIns: 'usage',
+                  useBuiltIns: `usage`,
                   debug,
                   corejs: 3,
                   targets: {
-                    browsers: 'last 1 Chrome versions',
+                    browsers: `last 1 Chrome versions`,
                   },
                   exclude: [
                     /web\.dom/, // We ain't got no DOM...
@@ -112,9 +96,15 @@ function createWebpackConfig(env) {
     },
 
     // Only spit out errors if we have them...
-    stats: 'errors-only',
+    stats: `errors-only`,
 
     plugins: [
+      new ESLintPlugin({
+        failOnError: true,
+        failOnWarning: false,
+        emitError: true,
+        cache: false,
+      }),
       // Remove any previous builds in the dist folder
       new CleanWebpackPlugin({
         dry: false,
@@ -153,6 +143,6 @@ function createWebpackConfig(env) {
 }
 
 module.exports =
-  process.env.NODE_ENV === 'testing'
+  process.env.NODE_ENV === `testing`
     ? createWebpackConfig
     : createWebpackConfig()
