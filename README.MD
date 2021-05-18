@@ -3,6 +3,8 @@
 A superbly simple, minimal-config launchpad to build, bundle and deploy
 Cloudflare Workers with Webpack 🚀
 
+**NOTE**: You should probably just use Cloudflare's official tool, [Wrangler](https://github.com/cloudflare/wrangler), at this point.
+
 <picture>
 
 <source type="image/webp" srcset=".github/cf-boilerplate2.webp?raw=true"
@@ -45,7 +47,7 @@ and even activate its route(s). The world's now yours to `require('🌍')`
 
 ### Requirements
 
-- Node 8 or later
+- Node 12 or later
 - Cloudflare account with domain
 
 ## Quick Start
